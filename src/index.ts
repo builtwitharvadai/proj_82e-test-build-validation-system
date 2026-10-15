@@ -2,10 +2,12 @@
  * Main library entry point for the Build Validator.
  *
  * Core functionality is re-exported from this module as it is implemented.
- * For now it only exposes the package version placeholder.
+ * For now it exposes the core domain types and the package version placeholder.
  *
  * @packageDocumentation
  */
+
+export * from './domain/types.js';
 
 /**
  * Current version of the build validator library.
