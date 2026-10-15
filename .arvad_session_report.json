@@ -1,0 +1,44 @@
+{
+  "files_created": [
+    ".gitignore",
+    "package.json",
+    "tsconfig.json",
+    ".eslintrc.cjs",
+    ".prettierrc.json",
+    ".prettierignore",
+    "src/index.ts",
+    "src/cli.ts"
+  ],
+  "files_modified": [
+    "README.md"
+  ],
+  "decisions": [
+    {
+      "what": "Added extra .gitignore entries beyond the required list (npm-debug logs, *.tsbuildinfo, .eslintcache, Thumbs.db)",
+      "why": "Spec asked to follow Node.js/TypeScript best practices for exclusions in addition to the mandatory entries"
+    },
+    {
+      "what": "Used a bin map entry 'build-validator' -> dist/cli.js",
+      "why": "Spec required a bin entry for the CLI at dist/cli.js; a named map makes the installed command explicit"
+    },
+    {
+      "what": "Added clean, dev, lint:fix, format:check and a placeholder test script",
+      "why": "Spec listed build/lint/format/test script operations; the placeholder test exits 0 since no test runner is in scope for this task"
+    },
+    {
+      "what": "Imported VERSION from './index.js' in src/cli.ts",
+      "why": "tsconfig uses NodeNext module resolution with type: module, so relative ESM imports require the .js extension"
+    },
+    {
+      "what": "Added an eslint-disable-next-line no-console comment in src/cli.ts",
+      "why": "The ESLint config sets no-console to warn, but the spec requires the CLI to console.log a placeholder message"
+    },
+    {
+      "what": "Kept the original README intro paragraph unchanged and appended new sections",
+      "why": "Spec explicitly required keeping existing content about project vision and goals"
+    }
+  ],
+  "tools_used": [
+    "Bash"
+  ]
+}
