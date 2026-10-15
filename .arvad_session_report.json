@@ -1,41 +1,33 @@
 {
   "files_created": [
-    ".gitignore",
-    "package.json",
-    "tsconfig.json",
-    ".eslintrc.cjs",
-    ".prettierrc.json",
-    ".prettierignore",
-    "src/index.ts",
-    "src/cli.ts"
+    "src/domain/types.ts",
+    "src/domain/__tests__/types.test.ts",
+    "jest.config.cjs"
   ],
   "files_modified": [
-    "README.md"
+    "package.json",
+    "src/index.ts"
   ],
   "decisions": [
     {
-      "what": "Added extra .gitignore entries beyond the required list (npm-debug logs, *.tsbuildinfo, .eslintcache, Thumbs.db)",
-      "why": "Spec asked to follow Node.js/TypeScript best practices for exclusions in addition to the mandatory entries"
+      "what": "Marked all interface properties readonly, with args typed as readonly string[] and env as Readonly<Record<string, string>>",
+      "why": "The specification asked for readonly where appropriate; these types are immutable contracts shared across modules."
     },
     {
-      "what": "Used a bin map entry 'build-validator' -> dist/cli.js",
-      "why": "Spec required a bin entry for the CLI at dist/cli.js; a named map makes the installed command explicit"
+      "what": "Used '../types.js' in the test import and './domain/types.js' in src/index.ts",
+      "why": "tsconfig.json uses module/moduleResolution NodeNext with \"type\": \"module\", which requires explicit .js extensions on relative imports."
     },
     {
-      "what": "Added clean, dev, lint:fix, format:check and a placeholder test script",
-      "why": "Spec listed build/lint/format/test script operations; the placeholder test exits 0 since no test runner is in scope for this task"
+      "what": "Verified readonly enforcement with @ts-expect-error inside non-invoked arrow functions",
+      "why": "Readonly violations are compile-time only; wrapping them keeps the assertions type-checked without mutating the shared fixtures at runtime."
     },
     {
-      "what": "Imported VERSION from './index.js' in src/cli.ts",
-      "why": "tsconfig uses NodeNext module resolution with type: module, so relative ESM imports require the .js extension"
+      "what": "Defined local SucceededBuild/FailedBuild interfaces extending BuildResult in the test for the discriminated-union case",
+      "why": "The union narrowing test was requested, but adding those variants to src/domain/types.ts would exceed the specified four types."
     },
     {
-      "what": "Added an eslint-disable-next-line no-console comment in src/cli.ts",
-      "why": "The ESLint config sets no-console to warn, but the spec requires the CLI to console.log a placeholder message"
-    },
-    {
-      "what": "Kept the original README intro paragraph unchanged and appended new sections",
-      "why": "Spec explicitly required keeping existing content about project vision and goals"
+      "what": "Kept jest configuration solely in jest.config.cjs rather than a package.json jest section",
+      "why": "Spec 003 allowed either; spec 004 defines jest.config.cjs, so a single source of configuration avoids conflicts."
     }
   ],
   "tools_used": [
